@@ -1,0 +1,27 @@
+model User {
+  id                 String       @id @default(uuid())
+  name               String
+  email              String
+  password           String?
+  googleId           String?      @unique
+  authProvider       AuthProvider @default(CREDENTIAL)
+  emailVerified      Boolean      @default(false)
+  role               Role         @default(PATIENT)
+  status             UserStatus   @default(ACTIVE)
+  needPasswordChange Boolean      @default(false)
+  imageUrl           String       @default("")
+  imagePublicId      String       @default("")
+  isDeleted          Boolean      @default(false)
+  // Shared demo accounts; their data must never mix with real users (FRONTEND_PLAN §2.3).
+  isDemo             Boolean      @default(false)
+  deletedAt          DateTime?
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+  patient            Patient?
+  doctor             Doctor?
+  admin              Admin?
+
+  @@unique([email])
+  @@index([isDemo])
+  @@map("users")
+}
