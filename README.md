@@ -117,13 +117,13 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 | ----------------------------- | ---------------------------------------------------------- |
 | `dev`                         | Run `src/server.ts` in watch mode with tsx                 |
 | `build`                       | Compile TypeScript to `dist/` with `tsc`                   |
-| `start`                       | Run the compiled server with Node (see the note below)     |
+| `start`                       | Run the compiled server with Bun                           |
 | `test`                        | Run tests with the Node test runner (`src/**/*.test.ts`)   |
 | `seed`                        | Seed the super admin and demo data (`src/scripts/seed.ts`) |
 | `lint:check` / `lint:fix`     | Lint `src` with Biome                                      |
 | `format:check` / `format:fix` | Check or fix formatting with Biome                         |
 
-> **Known issue:** `tsconfig.json` uses `rootDir: "./"`, so `build` outputs `dist/src/server.js`, but `start` runs `dist/server.js`. Until the script is fixed, run `node dist/src/server.js`.
+> The production start script uses Bun because the compiled ESM imports are extensionless, which Node.js does not resolve by default.
 
 ## Project Structure
 
